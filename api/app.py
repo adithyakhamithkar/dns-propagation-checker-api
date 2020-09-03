@@ -81,10 +81,10 @@ def givelist():
         app.logger.info(Message)
         abort(400, Message)
     else:
-        if ('FQDN' in req_data and 'DNS Record' in req_data):
+        if ('FQDN' in req_data and 'DNS_Record' in req_data):
             try:
                 list = GetPropagationList(
-                    req_data['FQDN'], req_data['DNS Record'])
+                    req_data['FQDN'], req_data['DNS_Record'])
                 app.logger.info((json.dumps(list)))
                 response = app.response_class(
                     response=json.dumps(list),

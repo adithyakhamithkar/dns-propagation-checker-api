@@ -35,7 +35,7 @@ curl --location --request POST 'http://localhost:8000/dns-propagation-checker' \
 --header 'Content-Type: application/json' \
 --data-raw '{
        "FQDN" : "google.com",
-       "DNS Record" : "A"
+       "DNS_Record" : "A"
 }'
 
 ```
