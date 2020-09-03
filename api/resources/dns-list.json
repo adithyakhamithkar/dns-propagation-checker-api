@@ -1,0 +1,32 @@
+[
+  {
+    "DNS Provider": "Google",
+    "Primary": "8.8.8.8",
+    "Secondary": "8.8.4.4"
+  },
+  {
+    "DNS Provider": "Quad9",
+    "Primary": "9.9.9.9",
+    "Secondary": "149.112.112.112"
+  },
+  {
+    "DNS Provider": "OpenDNS Home",
+    "Primary": "208.67.222.222",
+    "Secondary": "208.67.220.220"
+  },
+  {
+    "DNS Provider": "Cloudflare",
+    "Primary": "1.1.1.1",
+    "Secondary": "1.0.0.1"
+  },
+  {
+    "DNS Provider": "CleanBrowsing",
+    "Primary": "185.228.168.9",
+    "Secondary": "185.228.169.9"
+  },
+  {
+    "DNS Provider": "Verisign",
+    "Primary": "64.6.64.6",
+    "Secondary": "64.6.65.6"
+  }
+]

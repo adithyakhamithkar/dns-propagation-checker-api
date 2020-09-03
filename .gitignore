@@ -1,0 +1,6 @@
+*.log
+.DS_Store
+*.pyc
+apienv/
+__pycache__/*
+api/resources/lumIP
