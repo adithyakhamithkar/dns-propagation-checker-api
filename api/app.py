@@ -77,7 +77,9 @@ def givelist():
     # }
     req_data = request.get_json(force=True)
     if not request.json:
-        abort(400, "Missing JSON data")
+        Message = "Missing JSON data"
+        app.logger.info(Message)
+        abort(400, Message)
     else:
         if ('FQDN' in req_data and 'DNS Record' in req_data):
             try:
@@ -95,7 +97,9 @@ def givelist():
                 app.logger.error((e))
                 return (e)
         else:
-            return ("Could not find FQDN or DNS Record")
+            Message = "Could not find FQDN or DNS Record in JSON"
+            app.logger.info(Message)
+            return (Message)
 
 
 if __name__ == '__main__':
