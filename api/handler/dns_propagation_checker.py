@@ -17,7 +17,7 @@ def GetPropagationList(FQDN, DNS_RECORD):
     IPList = []
     List = ['Primary', 'Secondary']
 
-    # Get list of DNS Providers
+    # Get list of DNS_Providers
     with open('api/resources/dns-list.json') as f:
         DNSList = json.load(f)
     f.close()
@@ -27,7 +27,7 @@ def GetPropagationList(FQDN, DNS_RECORD):
             NS = DNSList[i][l]
             try:
                 logger.debug("Trying to resolve DNS from " +
-                             DNSList[i]['DNS Provider'] + ' : ' + NS)
+                             DNSList[i]['DNS_Provider'] + ' : ' + NS)
                 myResolver = dns.resolver.Resolver()
                 myResolver.nameservers = [socket.gethostbyname(NS)]
                 myResolver.lifetime = myResolver.timeout = 5.0
@@ -36,27 +36,27 @@ def GetPropagationList(FQDN, DNS_RECORD):
                     logger.debug(str(answer.to_text()))
                     IPList.append(str(answer.to_text()))
                 PropagationList.append(
-                    {'DNS Provider': DNSList[i]['DNS Provider'], str(NS): str(IPList)})
+                    {'DNS_Provider': DNSList[i]['DNS_Provider'], str(NS): str(IPList)})
                 del IPList[:]
             except (dns.resolver.NXDOMAIN):
                 logger.exception(dns.resolver.NXDOMAIN)
                 PropagationList.append(
-                    {'DNS Provider': DNSList[i]['DNS Provider'], str(NS): "Could not resolve DNS"})
+                    {'DNS_Provider': DNSList[i]['DNS_Provider'], str(NS): "Could not resolve DNS"})
             except (dns.resolver.NoAnswer):
                 logger.exception(dns.resolver.NoAnswer)
                 PropagationList.append(
-                    {'DNS Provider': DNSList[i]['DNS Provider'], str(NS): "No Answer from DNS"})
+                    {'DNS_Provider': DNSList[i]['DNS_Provider'], str(NS): "No Answer from DNS"})
             except (dns.exception.Timeout):
                 logger.exception(dns.exception.Timeout)
                 PropagationList.append(
-                    {'DNS Provider': DNSList[i]['DNS Provider'], str(NS): "Connection time from DNS"})
+                    {'DNS_Provider': DNSList[i]['DNS_Provider'], str(NS): "Connection time from DNS"})
             except:
                 message = "Please check the FQDN or the DNS record type"
                 logger.exception(message)
                 PropagationList.append(
-                    {'DNS Provider': DNSList[i]['DNS Provider'], str(NS): message})
+                    {'DNS_Provider': DNSList[i]['DNS_Provider'], str(NS): message})
 
     logger.debug(str(PropagationList))
-    HostInfo = {'DNS Query': {'Host': str(FQDN), 'DNS Record': str(
-        DNS_RECORD)}, "Result": {'DNS Propagation': PropagationList}}
+    HostInfo = {'DNS_Query': {'Host': str(FQDN), 'DNS_Record': str(
+        DNS_RECORD)}, "Result": {'DNS_Propagation': PropagationList}}
     return HostInfo
