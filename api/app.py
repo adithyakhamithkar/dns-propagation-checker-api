@@ -10,12 +10,14 @@ from flask import Flask
 from flask import Response
 from flask import jsonify
 from flask import request
+from flask import abort
 from apscheduler.scheduler import Scheduler
 
 
 # Custom
 from handler.ping import healthCheck
 from handler.dns_propagation_checker import GetPropagationList
+from handler.get_whois import GetWhois
 
 # Logging
 dictConfig({
@@ -80,6 +82,10 @@ def givelist():
         Message = "Missing JSON data"
         app.logger.info(Message)
         abort(400, Message)
+    if request.content_type != 'application/json':
+        Message = "Missing content_type"
+        app.logger.info(Message)
+        abort(400, Message)
     else:
         if ('FQDN' in req_data and 'DNS_Record' in req_data):
             try:
@@ -101,6 +107,41 @@ def givelist():
             app.logger.info(Message)
             return (Message)
 
+@app.route("/whois", methods=['POST'])
+def getwhois():
+        # Request json format
+        # {
+        #   "FQDN" : ""
+        # }
+    req_data = request.get_json(force=True)
+    if not request.json:
+        Message = "Missing JSON data"
+        app.logger.info(Message)
+        abort(400, Message)
+    if request.content_type != 'application/json':
+        Message = "Missing content_type"
+        app.logger.info(Message)
+        abort(400, Message)
+    else:
+        if ('FQDN' in req_data):
+            try:
+                list = GetWhois(
+                    req_data['FQDN'])
+                app.logger.info(str(list))
+                response = app.response_class(
+                    response=str(list),
+                    status=200,
+                    mimetype='application/json'
+                )
+                return response
+
+            except Exception as e:
+                app.logger.error((e))
+                return (e)
+        else:
+            Message = "Could not find FQDN"
+            app.logger.info(Message)
+            return (Message)
 
 if __name__ == '__main__':
 

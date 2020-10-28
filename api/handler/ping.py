@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # Obejctive to return a message
 
 def healthCheck(message):

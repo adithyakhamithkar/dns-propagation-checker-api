@@ -39,3 +39,5 @@ curl --location --request POST 'http://localhost:8000/dns-propagation-checker' \
 }'
 
 ```
+Vault
+https://modularsystems.io/blog/securing-secrets-python-vault/
